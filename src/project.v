@@ -15,9 +15,39 @@ module tt_um_project (
     input  wire       clk,      // clock
     input  wire       rst_n     // reset_n - low to reset
 );
+  module priority_encoder_16to8 (en, In, C);
+    input en;             
+    input [15:0] In;      // 16-bit input
+    output reg [7:0] C;   // 8-bit output
 
-  // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
+    always @(en, In) 
+      begin
+        if (en == 1) 
+          begin
+            if (In[15] == 1) C = 8'b0000_1111;
+            else if (In[14] == 1) C = 8'b0000_1110;
+            else if (In[13] == 1) C = 8'b0000_1101;
+            else if (In[12] == 1) C = 8'b0000_1100;
+            else if (In[11] == 1) C = 8'b0000_1011;
+            else if (In[10] == 1) C = 8'b0000_1010;
+            else if (In[9]  == 1) C = 8'b0000_1001;
+            else if (In[8]  == 1) C = 8'b0000_1000;
+            else if (In[7]  == 1) C = 8'b0000_0111;
+            else if (In[6]  == 1) C = 8'b0000_0110;
+            else if (In[5]  == 1) C = 8'b0000_0101;
+            else if (In[4]  == 1) C = 8'b0000_0100;
+            else if (In[3]  == 1) C = 8'b0000_0011;
+            else if (In[2]  == 1) C = 8'b0000_0010;
+            else if (In[1]  == 1) C = 8'b0000_0001;
+            else if (In[0]  == 1) C = 8'b0000_0000;
+            else C = 8'b1111_0000; // Special case: all zeros
+        end
+  
+        else C = 8'bzzzz_zzzz;
+    end
+  endmodule
+
+  priority_encoder_16to8 (1, {ui_in, uio_in}, uo_out)
   assign uio_out = 0;
   assign uio_oe  = 0;
 
