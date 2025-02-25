@@ -15,6 +15,13 @@ module tt_um_project (
     input  wire       clk,      // clock
     input  wire       rst_n     // reset_n - low to reset
 );
+
+priority_encoder_16to8 encoder_inst (
+    .en(1),
+    .In({ui_in, uio_in}),
+    .C(uo_out)
+);
+    
 module priority_encoder_16to8 (en, In, C);
     input en;             
     input [15:0] In;      // 16-bit input
