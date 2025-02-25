@@ -38,7 +38,7 @@ module tt_um_project (
                 else if (uio_in[2]  == 1) uo_out_reg = 8'b00000010;
                 else if (uio_in[1]  == 1) uo_out_reg = 8'b00000001;
                 else if (uio_in[0]  == 1) uo_out_reg = 8'b00000000;
-                else uo_out_reg = 8'b00000000;
+                else uo_out_reg = 8'b11110000;
             end
         else uo_out_reg = 8'bzzzzzzzz;
     end
