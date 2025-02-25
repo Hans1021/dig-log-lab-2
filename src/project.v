@@ -15,7 +15,7 @@ module tt_um_project (
     input  wire       clk,      // clock
     input  wire       rst_n     // reset_n - low to reset
 );
-  module priority_encoder_16to8 (en, In, C);
+module priority_encoder_16to8 (en, In, C);
     input en;             
     input [15:0] In;      // 16-bit input
     output reg [7:0] C;   // 8-bit output
@@ -45,7 +45,7 @@ module tt_um_project (
   
         else C = 8'bzzzz_zzzz;
     end
-  endmodule
+endmodule
 
   priority_encoder_16to8 (1, {ui_in, uio_in}, uo_out)
   assign uio_out = 0;
