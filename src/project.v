@@ -16,29 +16,35 @@ module tt_um_project (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-    always @(*) begin
-        if (ui_in[7] == 1) uo_out = 8'b0000_1111;
-        else if (ui_in[6] == 1) uo_out = 8'b0000_1110;
-        else if (ui_in[5] == 1) uo_out = 8'b0000_1101;
-        else if (ui_in[4] == 1) uo_out = 8'b0000_1100;
-        else if (ui_in[3] == 1) uo_out = 8'b0000_1011;
-        else if (ui_in[2] == 1) uo_out = 8'b0000_1010;
-        else if (ui_in[1]  == 1) uo_out = 8'b0000_1001;
-        else if (ui_in[0]  == 1) uo_out = 8'b0000_1000;
-        else if (uio_in[7]  == 1) uo_out = 8'b0000_0111;
-        else if (uio_in[6]  == 1) uo_out = 8'b0000_0110;
-        else if (uio_in[5]  == 1) uo_out = 8'b0000_0101;
-        else if (uio_in[4]  == 1) uo_out = 8'b0000_0100;
-        else if (uio_in[3]  == 1) uo_out = 8'b0000_0011;
-        else if (uio_in[2]  == 1) uo_out = 8'b0000_0010;
-        else if (uio_in[1]  == 1) uo_out = 8'b0000_0001;
-        else if (uio_in[0]  == 1) uo_out = 8'b0000_0000;
-        else uo_out = 8'b1111_0000; // Special case: all zeros
+    always @(ena, ui_in, uio_in) 
+        begin
+        if (ena == 1) 
+            begin
+                if (ui_in[7] == 1) uo_out = 8'b00001111;
+                else if (ui_in[6] == 1) uo_out = 8'b00001110;
+                else if (ui_in[5] == 1) uo_out = 8'b00001101;
+                else if (ui_in[4] == 1) uo_out = 8'b00001100;
+                else if (ui_in[3] == 1) uo_out = 8'b00001011;
+                else if (ui_in[2] == 1) uo_out = 8'b00001010;
+                else if (ui_in[1]  == 1) uo_out = 8'b00001001;
+                else if (ui_in[0]  == 1) uo_out = 8'b00001000;
+                else if (uio_in[7]  == 1) uo_out = 8'b00000111;
+                else if (uio_in[6]  == 1) uo_out = 8'b00000110;
+                else if (uio_in[5]  == 1) uo_out = 8'b00000101;
+                else if (uio_in[4]  == 1) uo_out = 8'b00000100;
+                else if (uio_in[3]  == 1) uo_out = 8'b00000011;
+                else if (uio_in[2]  == 1) uo_out = 8'b00000010;
+                else if (uio_in[1]  == 1) uo_out = 8'b00000001;
+                else if (uio_in[0]  == 1) uo_out = 8'b00000000;
+                else uo_out = 8'b00000000;
+            end
+        else uo_out = 8'bzzzzzzzz;
     end
+    
   assign uio_out = 0;
   assign uio_oe  = 0;
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, clk, rst_n, 1'b0};
+  wire _unused = &{clk, rst_n, 1'b0};
 
 endmodule
