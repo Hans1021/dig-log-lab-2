@@ -22,23 +22,10 @@ module tt_um_project (
         begin
         if (ena == 1) 
             begin
-                if (ui_in[7] == 1) uo_out_reg = 8'b00001111;
-                else if (ui_in[6] == 1) uo_out_reg = 8'b00001110;
-                else if (ui_in[5] == 1) uo_out_reg = 8'b00001101;
-                else if (ui_in[4] == 1) uo_out_reg = 8'b00001100;
-                else if (ui_in[3] == 1) uo_out_reg = 8'b00001011;
-                else if (ui_in[2] == 1) uo_out_reg = 8'b00001010;
-                else if (ui_in[1]  == 1) uo_out_reg = 8'b00001001;
-                else if (ui_in[0]  == 1) uo_out_reg = 8'b00001000;
-                else if (uio_in[7]  == 1) uo_out_reg = 8'b00000111;
-                else if (uio_in[6]  == 1) uo_out_reg = 8'b00000110;
-                else if (uio_in[5]  == 1) uo_out_reg = 8'b00000101;
-                else if (uio_in[4]  == 1) uo_out_reg = 8'b00000100;
-                else if (uio_in[3]  == 1) uo_out_reg = 8'b00000011;
-                else if (uio_in[2]  == 1) uo_out_reg = 8'b00000010;
-                else if (uio_in[1]  == 1) uo_out_reg = 8'b00000001;
-                else if (uio_in[0]  == 1) uo_out_reg = 8'b00000000;
-                else uo_out_reg = 8'b11110000;
+                if (ui_in > uio_in)
+                    uo_out_reg = ui_in - uio_in; // If ui_in is greater, subtract uio_in from ui_in
+                else
+                    uo_out_reg = uio_in - ui_in; // Otherwise, subtract ui_in from uio_in
             end
         else uo_out_reg = 8'bzzzzzzzz;
     end
