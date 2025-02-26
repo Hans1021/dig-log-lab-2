@@ -26,37 +26,37 @@ async def test_project(dut):
     dut._log.info("Test project behavior")
 
 
-    dut.ui_in.value = 0b00101010
-    dut.uio_in.value = 0b11110001
+    dut.ui_in.value = 234
+    dut.uio_in.value = 53
 
     await ClockCycles(dut.clk, 1)
 
-    assert dut.uo_out.value == 13
+    assert dut.uo_out.value == 181
 
-    dut.ui_in.value = 0b00000000
-    dut.uio_in.value = 0b00000001
+    dut.ui_in.value = 142
+    dut.uio_in.value = 52
+
+    await ClockCycles(dut.clk, 1)
+
+    assert dut.uo_out.value == 90
+
+    dut.ui_in.value = 0
+    dut.uio_in.value = 0
 
     await ClockCycles(dut.clk, 1)
 
     assert dut.uo_out.value == 0
 
-    dut.ui_in.value = 0b00000000
-    dut.uio_in.value = 0b00000000
+    dut.ui_in.value = 90
+    dut.uio_in.value = 142
 
     await ClockCycles(dut.clk, 1)
 
-    assert dut.uo_out.value == 0b11110000
+    assert dut.uo_out.value == 52
 
-    dut.ui_in.value = 0b00000010
-    dut.uio_in.value = 0b01010011
-
-    await ClockCycles(dut.clk, 1)
-
-    assert dut.uo_out.value == 9
-
-    dut.ui_in.value = 0b00000000
-    dut.uio_in.value = 0b00101011
+    dut.ui_in.value = 18
+    dut.uio_in.value = 19
 
     await ClockCycles(dut.clk, 1)
 
-    assert dut.uo_out.value == 5
+    assert dut.uo_out.value == 1
